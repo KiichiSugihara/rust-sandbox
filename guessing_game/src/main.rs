@@ -12,21 +12,28 @@ fn main() {
 
     println!("The secret number is: {}", secret_number); //秘密の数字は次の通り: {}
 
-    println!("Please input your guess.");
+    loop {
+        println!("Please input your guess.");
 
-    let mut guess = String::new();
+        println!("Please input your guess.");
 
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line");
+        let mut guess = String::new();
 
-    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Failed to read line");
 
-    println!("You guessed: {}", guess);
+        let guess: u32 = guess.trim().parse().expect("Please type a number!");
 
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small!"),  //小さすぎ！
-        Ordering::Greater => println!("Too big!"), //大きすぎ！
-        Ordering::Equal => println!("You win!"),   //やったね！
+        println!("You guessed: {}", guess);
+
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small!"),  //小さすぎ！
+            Ordering::Greater => println!("Too big!"), //大きすぎ！
+            Ordering::Equal => {
+                println!("You win!"); //やったね！
+                break;
+            }
+        }
     }
 }
